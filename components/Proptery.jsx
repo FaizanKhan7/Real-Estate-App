@@ -22,7 +22,7 @@ const Property = ({property: {coverPhoto, price, rentFrequency, rooms, title, ba
         <Link href={`/property/${externalID}`} passHref>
         <Flex flexWrap='wrap' w='420px' p='5' pt='0' pb='8' justifyContent='flex-start' m="0 auto" cursor='pointer' >
             <Box borderRadius='md' overflow='hidden' onMouseOver={scaleUp} onMouseOut={scaleDown}>
-                <Image src={coverPhoto ? coverPhoto.url : DefaultImage} width={400} height={260} alt="home" blurDataURL="blur"/>
+                <Image src={coverPhoto ? coverPhoto.url : DefaultImage} width={400} height={260} alt="home" placeholder="blur" blurDataURL={coverPhoto ? coverPhoto.url : DefaultImage}/>
             </Box>
             <Box w='full' >
                 <Flex paddingTop='2' alignItems='center' justifyContent='space-between'>

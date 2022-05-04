@@ -14,7 +14,14 @@ const Banner = ({
   buttonText,
 }) => (
   <Flex flexWrap="wrap" justifyContent="center" alignItems="center" my="10">
-    <Image src={imageUrl} width={500} height={300} alt="banner" />
+    <Image
+      src={imageUrl}
+      width={500}
+      height={300}
+      alt="banner"
+      placeholder="blur"
+      blurDataURL={imageUrl}
+    />
     <Box p="5">
       <Text color="grey.500" fontSize="sm" fontWeight="medium">
         {purpose}
