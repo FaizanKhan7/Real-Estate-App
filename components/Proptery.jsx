@@ -8,7 +8,7 @@ import millify from "millify";
 
 import DefaultImage from "../assets/images/home.jpg";
 
-const Property = ({property: {coverPhoto, price, rentFrequency, rooms, title, baths, area, agency, isVerified, externalId}}) => {
+const Property = ({property: {coverPhoto, price, rentFrequency, rooms, title, baths, area, agency, isVerified, externalID}}) => {
     const scaleUp = (e) => {
         e.target.style.transform = 'scale(1.1)'
         e.target.style.transition = 'all 0.9s ease 0s'
@@ -19,7 +19,7 @@ const Property = ({property: {coverPhoto, price, rentFrequency, rooms, title, ba
     }
     return (
 
-        <Link href={`/property/${externalId}`} passHref>
+        <Link href={`/property/${externalID}`} passHref>
         <Flex flexWrap='wrap' w='420px' p='5' pt='0' pb='8' justifyContent='flex-start' m="0 auto" cursor='pointer' >
             <Box borderRadius='md' overflow='hidden' onMouseOver={scaleUp} onMouseOut={scaleDown}>
                 <Image src={coverPhoto ? coverPhoto.url : DefaultImage} width={400} height={260} alt="home" blurDataURL="blur"/>

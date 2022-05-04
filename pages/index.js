@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import { Flex, Box, Text, Button, list } from "@chakra-ui/react";
+import { Flex, Box, Text, Button } from "@chakra-ui/react";
 import { baseUrl, fetchApi } from "../utils/fetchApi";
 import Property from "../components/Proptery";
 const Banner = ({
@@ -25,15 +25,16 @@ const Banner = ({
       <Text fontSize="lg" color="grey.700" py="3">
         {desc1} <br /> {desc2}
       </Text>
-      <Button fontSize="xl">
-        <Link href={linkName}>{buttonText}</Link>
+      <Button fontSize="xl" bg="blue.300" color="white">
+        <Link href={linkName}>
+          <a>{buttonText}</a>
+        </Link>
       </Button>
     </Box>
   </Flex>
 );
 
-const Home = ({ propertiesForRent, propertiesForSale }) => {
-  console.log(propertiesForSale, propertiesForRent);
+const Home = ({ propertiesForSale, propertiesForRent }) => {
   return (
     <Box>
       <Banner
@@ -43,7 +44,7 @@ const Home = ({ propertiesForRent, propertiesForSale }) => {
         desc1="Explore Apartments, Villas, Penthouses, Homes"
         desc2="and more"
         buttonText="Explore Renting"
-        linkName="/search?purpose=for-rent"
+        linkName="/Search?purpose=for-rent"
         imageUrl="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1400&q=80"
       />
       <Flex flexWrap="wrap">
@@ -58,7 +59,7 @@ const Home = ({ propertiesForRent, propertiesForSale }) => {
         desc1="Explore Apartments, Villas, Penthouses, Homes"
         desc2="and more"
         buttonText="Explore Buying"
-        linkName="/search?purpose=for-sale"
+        linkName="/Search?purpose=for-sale"
         imageUrl="https://images.unsplash.com/photo-1617104551722-3b2d51366400?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1400&q=80"
       />
       <Flex flexWrap="wrap">

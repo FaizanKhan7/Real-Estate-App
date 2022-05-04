@@ -3,17 +3,22 @@ import { useRouter } from "next/router";
 import Image from "next/image";
 import { Flex, Box, Text, Icon } from "@chakra-ui/react";
 import { BsFilter } from "react-icons/bs";
+
 import SearchFilters from "../components/SearchFilters";
+import { baseUrl, fetchApi } from "../utils/fetchApi";
+import noresult from "../assets/images/constructing.jpg";
 import Property from "../components/Proptery";
 
 const Search = ({ properties }) => {
   const [searchFilters, setSearchFilters] = useState(false);
   const router = useRouter();
+
   return (
     <Box>
       <Flex
+        onClick={() => setSearchFilters(!searchFilters)}
         cursor="pointer"
-        bg="grey.100"
+        bg="gray.100"
         borderBottom="1px"
         borderColor="gray.200"
         p="2"
@@ -21,10 +26,9 @@ const Search = ({ properties }) => {
         fontSize="lg"
         justifyContent="center"
         alignItems="center"
-        onClick={() => setSearchFilters((prevFilters) => !prevFilters)}
       >
-        <Text>Search Property by filters</Text>
-        <Icon pl="2" w="7" as={BsFilter} />
+        <Text>Search Property By Filters</Text>
+        <Icon paddingLeft="2" w="7" as={BsFilter} />
       </Flex>
       {searchFilters && <SearchFilters />}
       <Text fontSize="2xl" p="4" fontWeight="bold">
@@ -35,23 +39,17 @@ const Search = ({ properties }) => {
           <Property property={property} key={property.id} />
         ))}
       </Flex>
-      {properties.lenght === 0 && (
+      {properties.length === 0 && (
         <Flex
           justifyContent="center"
           alignItems="center"
-          flexDirection="column"
-          my="5"
+          flexDir="column"
+          marginTop="5"
+          marginBottom="5"
         >
-          <Image
-            alt="no-result"
-            src={
-              "https://media2.giphy.com/media/l1J9EdzfOSgfyueLm/giphy.gif?cid=ecf05e47cz871cjo0z04y7ov6qnyg1o8u01ucvt2zt9nbcgs&rid=giphy.gif&ct=g"
-            }
-            width={500}
-            height={300}
-          />
-          <Text fontSize="2xl" mt="3">
-            No Results Found
+          <Image src={noresult} alt="" />
+          <Text fontSize="xl" marginTop="3">
+            No Result Found.
           </Text>
         </Flex>
       )}
@@ -59,13 +57,25 @@ const Search = ({ properties }) => {
   );
 };
 
-export async function getStaticProps() {
-  
-  
+export async function getServerSideProps({ query }) {
+  const purpose = query.purpose || "for-rent";
+  const rentFrequency = query.rentFrequency || "yearly";
+  const minPrice = query.minPrice || "0";
+  const maxPrice = query.maxPrice || "1000000";
+  const roomsMin = query.roomsMin || "0";
+  const bathsMin = query.bathsMin || "0";
+  const sort = query.sort || "price-desc";
+  const areaMax = query.areaMax || "35000";
+  const locationExternalIDs = query.locationExternalIDs || "5002";
+  const categoryExternalID = query.categoryExternalID || "4";
+
+  const data = await fetchApi(
+    `${baseUrl}/properties/list?locationExternalIDs=${locationExternalIDs}&purpose=${purpose}&categoryExternalID=${categoryExternalID}&bathsMin=${bathsMin}&rentFrequency=${rentFrequency}&priceMin=${minPrice}&priceMax=${maxPrice}&roomsMin=${roomsMin}&sort=${sort}&areaMax=${areaMax}`
+  );
 
   return {
     props: {
-      propertiesForSale: propertyForSale?.hits,
+      properties: data?.hits,
     },
   };
 }
